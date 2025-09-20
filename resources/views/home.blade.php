@@ -26,22 +26,22 @@
         </div>
     </div>
 
-    <div class="row mb-5"> 
+    <div class="row mb-5" id="categorias"> 
         <div class="col-12 col-md-6 col-lg-4">
             <x-categoria-card 
-                ruta="{{ route('home')}}"
+                ruta="{{ route('productos', ['categoria' => 'Panaderia']) }}"
                 imagen="{{ asset('images/categorias/panaderia.jpg') }}" 
                 categoria="Panadería" />
         </div>
         <div class="col-12 col-md-6 col-lg-4 ">
             <x-categoria-card 
-                ruta="{{ route('home')}}"
+                ruta="{{ route('productos', ['categoria' => 'Pasteleria']) }}"
                 imagen="{{ asset('images/categorias/pasteleria.jpg') }}" 
                 categoria="Pastelería" />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
             <x-categoria-card 
-                ruta="{{ route('home')}}"
+                ruta="{{ route('productos', ['categoria' => 'Salados']) }}"
                 imagen="{{ asset('images/categorias/salados.jpg') }}" 
                 categoria="Salados" />
         </div>
@@ -63,7 +63,6 @@
         </div>
     </div>
 </section>
-
 
 @endsection
 
