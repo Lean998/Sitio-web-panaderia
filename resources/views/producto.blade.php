@@ -35,7 +35,7 @@
                     <span class="fw-bold">Tipo:</span> {{ $producto->tipo }}
                 </p>
                 <p class="mb-2 color-chocolate">
-                    <span class="fw-bold">Cantidad:</span> {{ number_format($producto->cantidad, 2, ',', '.') }} {{ $unidadMedida }}
+                    <span class="fw-bold">Stock:</span> {{ number_format($producto->cantidad, 2, ',', '.') }} {{ $unidadMedida }}
                 </p>
 
                 <p class="fs-4 fw-bold color-chocolate mt-3">
@@ -44,7 +44,7 @@
             </div>
 
             {{-- Controles --}}
-            <div class="mt-4">
+            <div>
                 @php
                     $carrito = session()->get('carrito', []);
                     $enCarrito = isset($carrito[$producto->id]);
@@ -52,34 +52,45 @@
                     $sinStock = $producto->cantidad - $cantidadEnCarrito <= 0;
                 @endphp
 
-                @if ($enCarrito)
-                    <form action="{{ route('carrito.agregar', ['producto' => $producto->id]) }}" method="GET" class="d-inline">
+                <form action="{{ route('producto.extendido', ['producto' => $producto->id]) }}" method="POST" class="row gap-3">
                         @csrf
-                        <button class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled' : '' }}">
-                            <i class="bi bi-cart-check-fill me-1"></i>
-                            Añadir más
-                        </button>
-                    </form>
-                @else
-                    <form action="{{ route('carrito.agregar', ['producto' => $producto->id]) }}" method="GET" class="d-inline">
-                        @csrf
-                        <button class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled' : '' }}">
-                            <i class="bi bi-cart me-1"></i>
-                            Agregar al carrito
-                        </button>
-                    </form>
-                @endif
+                            <div class="col-12 col-md-4">
+                                @switch($unidadMedida)
+                                    @case('unidades')
+                                        <label for="inputCantidad" class="form-label">Cantidad: </label>
+                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    @break
+                                    @case('docenas')
+                                        <label for="inputCantidad" class="form-label">Cantidad (docenas): </label>
+                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito  }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    @break
+                                    @case('medias docenas')
+                                        <label for="inputCantidad" class="form-label">Cantidad (medias docenas): </label>
+                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    @break
+                                    @case('kg')
+                                        <label for="inputCantidad" class="form-label">Cantidad (kg): </label>
+                                        <input id="inputCantidad" type="number" name="cantidad" min="0.1" step="0.1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="0.1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    @break
+                                @endswitch
+                            </div>
+                            
+                            <div class="col-12 col-md-8 d-flex flex-wrap gap-2">
+                                @if ($enCarrito)
+                                        <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Añadir más">
+                                        </input>
+                                @else
+                                        <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Agregar al carrito">
+                                        </input>
+                                @endif
 
-                @if($sinStock)
-                    <p class="text-danger mt-2">Sin stock disponible</p>
-                @endif
+                                @if($sinStock)
+                                    <p class="text-danger fw-bold mt-2 bg-sand rounded p-2">Sin stock disponible</p>
+                                @endif
 
-                <form action="{{ route('producto.comprar', ['producto' => $producto->id]) }}" method="POST" class="d-inline">
-                        @csrf
-                        <button class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled' : '' }}">
-                            <i class="bi bi-cart me-1"></i>
-                            Comprar Ahora
-                        </button>
+                                <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="comprar" value="Comprar Ahora">
+                                </input>    
+                            </div>
                 </form>
             </div>
         </div>
