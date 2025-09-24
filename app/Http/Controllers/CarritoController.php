@@ -13,14 +13,14 @@ class CarritoController extends Controller
         return view('carrito', compact('carrito', 'total'));
     }
 
-    public function agregarAlCarrito(Request $request, $productoId = null){
+    public function agregarAlCarrito(Request $request, $productoId = null, $cantidad = 1){
         $carrito = session()->get('carrito', []);
         if (isset($carrito[$productoId])) {
             $producto = Producto::find($productoId);
-            if($producto->cantidad - $carrito[$productoId]['cantidad'] <= 0){
+            if($producto->cantidad - $carrito[$productoId]['cantidad'] + $cantidad <= 0){
                 return back()->with('error', 'No hay stock disponible para agregar otra unidad de '.$producto->nombre);
             }
-        $carrito[$productoId]['cantidad']++;
+        $carrito[$productoId]['cantidad'] += $cantidad;
         session()->put('carrito', $carrito);
         Carrito::actualizarCarrito(session()->getId(), session()->get('carrito', []));
         if(!$this->actualizarCarrito()){
@@ -29,10 +29,13 @@ class CarritoController extends Controller
         return back()->with('success', 'Agregaste una unidad de '.$producto->nombre.' al carrito.');
         } else {
         $producto = Producto::find($productoId);
+        if($producto->cantidad - $cantidad <= 0){
+            return back()->with('error', 'No hay stock disponible para agregar otra unidad de '.$producto->nombre);
+        }
         $carrito[$productoId] = [
             "id" => $producto->id,
             "nombre" => $producto->nombre,
-            "cantidad" => 1,
+            "cantidad" => $cantidad,
             "precio" => $producto->precio,
             "imagen" => $producto->imagen
         ];
