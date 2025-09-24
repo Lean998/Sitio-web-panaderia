@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CarritoController;
+use App\Models\Carrito;
 use Illuminate\Http\Request; 
 class ProductoController extends Controller
 {
@@ -74,16 +76,50 @@ class ProductoController extends Controller
         }
     }
 
+    public function productoExtendido(Request $request, $producto = null){
+        if($request->filled('agregar')){
+            $producto = Producto::find($producto);
+            if (!$producto) {
+                return redirect()->route('productos')->with('error', 'Producto no encontrado.');
+            }
+            $cantidad = $request->filled('cantidad') ? (int)$request->cantidad : 0;
+            if($cantidad < 1){
+                return redirect()->route('productos')->with('error', 'Cantidad inválida.');
+            }
+            return redirect()->route('carrito.agregar', ['producto' => $producto->id, 'cantidad' => $cantidad]);
+        }
+        
+        if($request->filled('comprar')){
+            $producto = Producto::find($producto);
+            if (!$producto) {
+                return redirect()->route('productos')->with('error', 'Producto no encontrado.');
+            }
+            return $this->comprarProducto($request, $producto->id);
+        }
+    }
+
     public function comprarProducto(Request $request, $producto = null){
         if ($producto) {
             $producto = Producto::find($producto);
             if ($producto) {
-                // Verificar stock
-                if ($producto->cantidad > 0) {
-                    // Disminuir stock
-                    $producto->cantidad -= 1;
-                    $producto->save();
+                $carrito = session()->get('carrito', []);
+                $cantidad = $request->filled('cantidad') ? (int)$request->cantidad : 0;
+                if($cantidad < 1){
+                    return redirect()->route('productos.ver', ['producto' => $producto->id])->with('error', 'Cantidad inválida.');
                 }
+                $cantidadCarrito = $carrito[$producto->id]['cantidad'] ?? 0;
+                if($producto->cantidad - $cantidadCarrito + $cantidad <= 0){
+                    return back()->with('error', 'No hay stock disponible para agregar otra unidad de '.$producto->nombre);
+                }
+                // Disminuir stock
+                $producto->cantidad -= $cantidad;
+                $producto->save();
+                // Limpiar carrito
+                $carritoController = new CarritoController();
+                $carritoController->eliminarProducto($producto->id);
+                // Actualizar carrito en base de datos  
+                $carritoController->actualizarCarrito(session()->getId(), session()->get('carrito', []));
+                //Confirmacion de Compra
                 return redirect()->route('productos.ver', ['producto' => $producto->id])->with('success', 'Producto comprado con éxito.');
             }      
         }
