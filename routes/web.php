@@ -18,11 +18,15 @@ Route::get('/productos/ver/{producto?}', [ProductoController::class, 'getProduct
 Route::post('/productos/ver/{producto?}', [ProductoController::class, 'comprarProducto'])
 ->name('producto.comprar');
 
+Route::post('/producto/extendido/{producto?}', [ProductoController::class, 'productoExtendido'])
+->name('producto.extendido');
+
 Route::get('/carrito', [CarritoController::class, 'index'])
 ->name('carrito');
 
-Route::get('/carrito/agregar/{producto?}', [CarritoController::class, 'agregarAlCarrito'])
+Route::get('/carrito/agregar/{producto?}/{cantidad?}', [CarritoController::class, 'agregarAlCarrito'])
 ->name('carrito.agregar');
+
 
 Route::get('/carrito/eliminarCarrito', [CarritoController::class, 'eliminarCarrito'])
 ->name('carrito.eliminarCarrito');
