@@ -82,8 +82,8 @@ class ProductoController extends Controller
             if (!$producto) {
                 return redirect()->route('productos')->with('error', 'Producto no encontrado.');
             }
-            $cantidad = $request->filled('cantidad') ? (int)$request->cantidad : 0;
-            if($cantidad < 1){
+            $cantidad =abs(floatval($request->input('cantidad')));
+            if($cantidad < 0.1){
                 return redirect()->route('productos')->with('error', 'Cantidad inválida.');
             }
             return redirect()->route('carrito.agregar', ['producto' => $producto->id, 'cantidad' => $cantidad]);
