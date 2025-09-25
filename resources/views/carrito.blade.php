@@ -17,35 +17,67 @@
     @else
         <div class="row g-3 mt-4">
             @foreach ($carrito as $producto)
-
+                @php
+                    $unidadMedida = match($producto['unidad_venta']) {
+                        'docena' => 'docena/as',
+                        'media_docena' => 'media docena/as',
+                        'kg' => 'kg',
+                        default => 'unidad/es',
+                    };
+                @endphp
                 <div class="col-12">
                     <div class="producto-carrito bg-sand border-chocolate rounded p-3 shadow-sm d-flex flex-wrap justify-content-between align-items-center">
                         {{-- Imagen del producto --}}
+                        
                             <div class="flex-shrink-0 me-3">
+                                <a href="{{ route('productos.ver', ['producto' => $producto['id']]) }}">
                                 <img src="{{ asset('images/categorias/panaderia.jpg') }}" alt="{{ $producto['nombre'] }}" title="{{ $producto['nombre'] }}" class="img-fluid rounded" style="width: 130px; height: 130px; object-fit: cover;">
+                                </a>
                             </div>
+                        
                         {{-- Nombre y precio --}}
                         <div class="me-3 flex-grow-1">
                             <h3 class="color-chocolate mb-2">{{ $producto['nombre'] }}</h3>
                             <p class="mb-0 fw-bold color-coffee">Precio unitario: ${{ number_format($producto['precio'], 2, ',', '.') }}</p>
                         </div>
-
                         {{-- Controles de cantidad --}}
                         <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
-                            <span class="fw-bold fs-5">{{ $producto['cantidad'] }}</span>
-
                             <form action="{{ route('carrito.eliminarUnidad', ['producto' => $producto['id']]) }}">
                                 @csrf
-                                <button class="btn btn-outline-danger btn-sm" type="submit">-</button>
+                                {{-- Botones de decremento --}}
+                                @if($unidadMedida === 'kg')
+                                <input type="submit" class="btn btn-danger btn-sm" name="cantidad" value="-0.50"></input>
+                                <input type="submit" class="btn btn-danger btn-sm" name="cantidad" value="-0.25"></input>
+                                @endif
+                                <button class="btn btn-danger btn-sm" type="submit" name="1">-1</button>
                             </form>
+                        @php
+                        if($unidadMedida === 'kg')
+                            $cantidadEnCarrito = number_format($producto['cantidad'], 2, ',', '.');
+                        else
+                            $cantidadEnCarrito = (int) $producto['cantidad'];
+                        @endphp
+                        <span class="fw-bold fs-5">{{ $cantidadEnCarrito . ' ' . ucfirst($unidadMedida) }} </span>
 
-                            <form action="{{ route('carrito.agregarUnidad', ['producto' => $producto['id']]) }}" >
-                                @csrf
-                                <button class="btn btn-outline-success btn-sm" type="submit">+</button>
-                            </form>
+        @if ($unidadMedida === 'kg')
+            <form action="{{ route('carrito.agregarUnidad', ['producto' => $producto['id']]) }}" method="GET" class="d-flex align-items-center gap-2">
+                @csrf
+                {{-- Botones de incremento --}}
+                <input type="submit" class="btn btn-success btn-sm" name="cantidad" value="+0.25"></input>
+                <input type="submit" class="btn btn-success btn-sm" name="cantidad" value="+0.50"></input>
+                <input type="submit" class="btn btn-success btn-sm" name="cantidad" value="+1"></input>
+            </form>
+@else
+    {{-- Caso clásico: unidades enteras --}}
+    <form action="{{ route('carrito.agregarUnidad', ['producto' => $producto['id']]) }}" method="GET">
+        @csrf
+        <button class="btn btn-success btn-sm" type="submit">+1</button>
+    </form>
+@endif
 
                             <form action="{{ route('carrito.eliminarProducto', ['producto' => $producto['id']]) }}">
                                 @csrf
+                                
                                 <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                             </form>
                         </div>
@@ -64,4 +96,13 @@
         </div>
     @endif
 </div>
+
+<script>
+function ajustarCantidad(productoId, cambio) {
+    let input = document.getElementById("cantidad-" + productoId);
+    let valor = parseFloat(input.value) || 0;
+    let nuevoValor = Math.max(0, (valor + cambio).toFixed(2)); // nunca menor a 0
+    input.value = nuevoValor;
+}
+</script>
 @endsection
