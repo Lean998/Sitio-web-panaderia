@@ -6,10 +6,10 @@
 
 @php
     $unidadMedida = match($producto->unidad_venta) {
-        'docena' => 'docenas',
-        'media_docena' => 'medias docenas',
+        'docena' => 'docena/as',
+        'media_docena' => 'media docena/as',
         'kg' => 'kg',
-        default => 'unidades',
+        default => 'unidad/es',
     };
 @endphp
 
@@ -35,7 +35,13 @@
                     <span class="fw-bold">Tipo:</span> {{ $producto->tipo }}
                 </p>
                 <p class="mb-2 color-chocolate">
-                    <span class="fw-bold">Stock:</span> {{ number_format($producto->cantidad, 2, ',', '.') }} {{ $unidadMedida }}
+                    @php
+                        if($unidadMedida === 'kg')
+                            $stock = number_format($producto->cantidad, 2, ',', '.');
+                        else
+                            $stock = (int) $producto->cantidad;
+                    @endphp
+                    <span class="fw-bold">Stock:</span> {{ $stock}} {{ $unidadMedida }}
                 </p>
 
                 <p class="fs-4 fw-bold color-chocolate mt-3">
@@ -55,24 +61,13 @@
                 <form action="{{ route('producto.extendido', ['producto' => $producto->id]) }}" method="POST" class="row gap-3">
                         @csrf
                             <div class="col-12 col-md-4">
-                                @switch($unidadMedida)
-                                    @case('unidades')
-                                        <label for="inputCantidad" class="form-label">Cantidad: </label>
-                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
-                                    @break
-                                    @case('docenas')
-                                        <label for="inputCantidad" class="form-label">Cantidad (docenas): </label>
-                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito  }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
-                                    @break
-                                    @case('medias docenas')
-                                        <label for="inputCantidad" class="form-label">Cantidad (medias docenas): </label>
-                                        <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
-                                    @break
-                                    @case('kg')
-                                        <label for="inputCantidad" class="form-label">Cantidad (kg): </label>
-                                        <input id="inputCantidad" type="number" name="cantidad" min="0.1" step="0.1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="0.1" class="form-control d-inline w-auto me-2" style="width: 80px;">
-                                    @break
-                                @endswitch
+                                @if($unidadMedida == "kg")
+                                    <label for="inputCantidad" class="form-label">Cantidad (kg): </label>
+                                    <input id="inputCantidad" type="number" name="cantidad" min="0.1" step="any" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                @else
+                                    <label for="inputCantidad" class="form-label">Cantidad: </label>
+                                    <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                @endif
                             </div>
                             
                             <div class="col-12 col-md-8 d-flex flex-wrap gap-2">
