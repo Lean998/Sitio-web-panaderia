@@ -21,7 +21,9 @@
                     <div class="producto-favoritos bg-sand border-chocolate rounded p-3 shadow-sm d-flex flex-wrap justify-content-between align-items-center">
                         {{-- Imagen del producto --}}
                             <div class="flex-shrink-0 me-3">
-                                <img src="{{ asset('images/categorias/panaderia.jpg') }}" alt="{{ $producto['nombre'] }}" title="{{ $producto['nombre'] }}" class="img-fluid rounded" style="width: 130px; height: 130px; object-fit: cover;">
+                                <a href="{{ route('productos.ver', ['producto' => $producto['id']]) }}">
+                                    <img src="{{ asset('images/categorias/panaderia.jpg') }}" alt="{{ $producto['nombre'] }}" title="{{ $producto['nombre'] }}" class="img-fluid rounded" style="width: 130px; height: 130px; object-fit: cover;">
+                                </a>
                             </div>
                         {{-- Nombre y precio --}}
                         <div class="me-3 flex-grow-1">
@@ -31,10 +33,21 @@
 
                         <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
                             {{-- Botón para agregar el producto de la lista de compras al carrito --}}
+                            @php
+                                $carrito = session()->get('carrito', []);
+                                $enCarrito = isset($carrito[$producto['id']]);
+                            @endphp
+                            @if ($enCarrito)
+                                <form action="{{ route('carrito') }}">
+                                <button class="btn btn-success btn-sm" type="submit">Ver en el Carrito</button>
+                                </form>
+                            @else
                             <form action="{{ route('carrito.agregar', ['producto' => $producto['id']]) }}">
                                 @csrf
+                                <input id="inputCantidad" type="number" name="cantidad" min="1" value="1" class="form-control d-none">
                                 <button class="btn btn-success btn-sm" type="submit">Agregar al Carrito</button>
                             </form>
+                            @endif
                             {{-- Botón para eliminar el producto de favoritos --}}
                             <form action="{{ route('favoritos.eliminarProducto', ['producto' => $producto['id']]) }}">
                                 @csrf
