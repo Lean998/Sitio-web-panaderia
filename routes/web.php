@@ -15,10 +15,10 @@ Route::get('/productos/{categoria?}', [ProductoController::class, 'index'])
 Route::get('/productos/ver/{producto?}', [ProductoController::class, 'getProducto'])
 ->name('productos.ver');
 
-Route::post('/productos/ver/{producto?}', [ProductoController::class, 'comprarProducto'])
+Route::post('/productos/ver/{producto?}', [ProductoController::class, 'agregarYComprar'])
 ->name('producto.comprar');
 
-Route::post('/producto/extendido/{producto?}', [ProductoController::class, 'productoExtendido'])
+Route::post('/producto/extendido/{producto?}', [ProductoController::class, 'agregarYComprar'])
 ->name('producto.extendido');
 
 Route::get('/carrito', [CarritoController::class, 'index'])
