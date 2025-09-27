@@ -81,7 +81,7 @@ public function eliminarCarrito(){
         return back()->with('error', 'Ocurrió un error inesperado al vaciar el carrito de compras.');
     }
 }
-private function actualizarCarrito(): bool{
+public function actualizarCarrito(): bool{
     session()->put('carrito', Carrito::getCarrito(session()->getId()) ?? []);
     return true;
 }
