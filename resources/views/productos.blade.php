@@ -2,6 +2,7 @@
 
 @push('styles')
     @vite(['resources/css/productos.css'])
+    @vite(['resources/css/inputsYBotones.css'])
 @endpush
 
 @section('title', 'Productos')
@@ -37,7 +38,7 @@
   <!-- Buscar -->
   <div class="col-auto">
     <div class="input-group" id="buscador">
-      <input type="text" name="buscar" class="form-control bg-sand border-chocolate color-chocolate input-buscar" placeholder="Buscar..." value="{{ request('buscar') }}">
+      <input type="text" name="buscar" class="form-control bg-sand border-chocolate color-chocolate input-texto" placeholder="Buscar..." value="{{ request('buscar') }}">
       <button type="submit" name="action" value="aplicar" class="btn border-chocolate btn-buscar">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search color-coffee" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/> </svg>
       </button>
