@@ -5,9 +5,18 @@ use App\Http\Controllers\FavoritosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\BaseController;
+use App\Http\Controllers\ContactoController;
 
 Route::get('/', [BaseController::class, 'index'])
 ->name('home');
+
+
+
+Route::post('/contacto', [ContactoController::class, 'submit'])
+->name('contacto.submit');
+
+Route::get('/contacto', [ContactoController::class, 'show'])
+->name('contacto.show');
 
 Route::get('/productos/{categoria?}', [ProductoController::class, 'index'])
 ->name('productos');
