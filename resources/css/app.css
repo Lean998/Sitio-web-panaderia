@@ -17,6 +17,7 @@
     --fs-h2: 2rem;      /* 32px */
     --fs-h3: 1.75rem;  /* 28px */
     --fs-body: 1.50rem; /* 24px */
+    --fs-primary: 1.25rem; /* 20px */
 }
 
 .fs-h1 {
@@ -30,6 +31,9 @@
 }
 .fs-body {
     font-size: var(--fs-body);
+}
+.fs-primary {
+    font-size: var(--fs-primary);
 }
 
 .color-cream {
