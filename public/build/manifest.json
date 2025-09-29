@@ -1,0 +1,39 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-BCbsWDrT.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/productos.css": {
+    "file": "assets/app-BCbsWDrT.css",
+    "src": "resources/css/productos.css",
+    "isEntry": true,
+    "names": [
+      "productos.css"
+    ]
+  },
+  "resources/css/inputsYBotones.css": {
+    "file": "assets/app-BCbsWDrT.css",
+    "src": "resources/css/inputsYBotones.css",
+    "isEntry": true,
+    "names": [
+      "inputsYBotones.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-C4Qzge_3.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/app-C4Qzge_3.js",
+    "name": "bootstrap",
+    "src": "resources/js/bootstrap.js",
+    "isEntry": true
+  }
+  
+}
