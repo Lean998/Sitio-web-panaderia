@@ -1,0 +1,112 @@
+@import './inputYBotones.css';
+.btn-buscar {
+  background-color: transparent;
+  color: var(--color-coffee, #5c3a21);
+  border: 1px solid var(--color-chocolate, #5C3A21);
+  transition: none; /* sin animaciones */
+}
+
+.btn-buscar:hover,
+.btn-buscar:focus {
+  background-color: rgba(92, 58, 33, 0.25); 
+  color: var(--color-sand, #F5E8C7);
+  border-color: var(--color-chocolate, #5C3A21);
+  box-shadow: none;
+}
+
+#buscador{
+    min-width: 516px;
+}
+
+#tipo{
+    min-width: 232px;
+}
+
+#ordenar{
+    min-width: 232px;
+}
+
+.btn-aplicar{
+    min-width: 127px;
+}
+
+.input-texto {
+    background-color: var(--color-sand, #F5E8C7);
+    border: 1px solid var(--color-chocolate, #5C3A21);
+    color: var(--color-coffee, #5C3A21);
+}
+
+.input-texto:focus {
+  background-color: var(--color-sand, #F5E8C7);
+  border-color: var(--color-chocolate, #5C3A21);
+  color: var(--color-coffee, #5C3A21);
+  box-shadow: none;
+}
+
+.btn-aplicar:hover,
+.btn-aplicar:focus {
+  background-color: rgba(70, 45, 25, 1);
+  color: var(--color-sand, #F5E8C7);
+  border-color: var(--color-chocolate, #5C3A21);
+  box-shadow: none;
+}
+
+.btn-buy {
+    width: 127px;
+    height: 34px;
+}
+
+.btn-buy:hover, .btn-buy:focus {
+    background-color: var(--color-chocolate, rgb(92, 58, 33)); 
+    color: var(--color-sand, #F5E8C7);
+    border-color: var(--color-chocolate, #5C3A21);
+    box-shadow: none;
+}
+
+.btn-small {
+    width: 50px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.btn-small:hover, .btn-small:focus {
+    background-color: var(--color-chocolate); 
+    color: var(--color-sand, #F5E8C7);
+    border-color: var(--color-chocolate, #5C3A21);
+    box-shadow: none;
+}
+
+
+@media (max-width: 575.98px) {
+    .btn-buy {
+        width: 100px;
+        font-size: 0.875rem;
+    }
+    
+    .btn-small {
+        width: 40px;
+        height: 30px;
+    }
+    
+    .btn-small svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+
+.btn-buy-responsive {
+    height: 34px;
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.btn-buy-responsive:hover, .btn-buy-responsive:focus {
+    background-color: var(--color-chocolate, rgb(92, 58, 33)); 
+    color: var(--color-sand, #F5E8C7);
+    border-color: var(--color-chocolate, #5C3A21);
+    box-shadow: none;
+}

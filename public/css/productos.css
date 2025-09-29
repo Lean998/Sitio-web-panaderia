@@ -1,0 +1,39 @@
+@import './productos.css';
+/* Estilos para la página de productos */
+.product-card {
+    min-height: 300px; 
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+}
+
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+
+/* Ajustes para tablets */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .product-card {
+        min-height: 320px;
+    }
+}
+
+/* Ajustes para pantallas medianas */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .product-card {
+        min-height: 340px;
+    }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 992px) {
+    .product-card {
+        min-height: 360px;
+    }
+}

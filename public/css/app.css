@@ -1,0 +1,159 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import './app.css';
+
+:root {
+    font-size: 16px;
+    font-family: var(--font-sans);
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-cream: #F5E8C7;     
+    --color-coffee: #A47148;    
+    --color-sand: #F2E1B9;      
+    --color-chocolate: #5C3A21; 
+    --color-caramel: #d4a373;   
+
+    /* Font sizes */
+    --fs-h1: 2.75rem;   /* 44px */
+    --fs-h2: 2rem;      /* 32px */
+    --fs-h3: 1.75rem;  /* 28px */
+    --fs-body: 1.50rem; /* 24px */
+    --fs-primary: 1.25rem; /* 20px */
+}
+
+.fs-h1 {
+    font-size: var(--fs-h1);
+}
+.fs-h2 {
+    font-size: var(--fs-h2);
+}
+.fs-h3 {
+    font-size: var(--fs-h3);
+}
+.fs-body {
+    font-size: var(--fs-body);
+}
+.fs-primary {
+    font-size: var(--fs-primary);
+}
+
+.color-cream {
+    color: var(--color-cream);
+}
+
+.color-coffee {
+    color: var(--color-coffee);
+}
+
+.color-sand {
+    color: var(--color-sand);
+}
+
+.color-chocolate {
+    color: var(--color-chocolate);
+}
+
+.color-caramel {
+    color: var(--color-caramel);
+}
+
+.bg-chocolate {
+    background-color: var(--color-chocolate);
+}
+
+.bg-coffee {
+    background-color: var(--color-coffee);
+}
+
+.bg-sand {
+    background-color: var(--color-sand);
+}
+
+.bg-caramel {
+    background-color: var(--color-caramel);
+}
+
+
+.border-chocolate{
+    border: 1px solid var(--color-chocolate);
+}
+
+html, body {
+  height: auto; /* evitar 100vh forzado */
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
+main {
+    width: 100%;
+    min-height: calc(100vh - 80px - 100px); 
+}
+
+body {
+    width: 100%;
+    background-color: var(--color-cream) 
+}
+
+header{
+    width: 100%;
+    min-height: 80px;
+    padding: 0;
+    background-color: var(--color-chocolate);
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+header *{
+    color: var(--color-sand);
+}
+
+.bg-banner {
+    height: 58rem; 
+    background-size: cover;   
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.banner-text {
+    max-width: 60%;       
+    margin: 0 auto;        
+    text-align: left;       
+}
+
+footer{
+    width: 100%;
+    background-color: var(--color-chocolate);
+    color: var(--color-sand);
+}
+
+.border-sand{
+    border-right: 2px solid var(--color-sand);
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#cart-link {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+#cart-link svg {
+    width: 36px;
+    height: 36px;
+    fill: var(--color-sand);
+}
+
+.product-card {
+            width: 320px;
+            height: 371px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
