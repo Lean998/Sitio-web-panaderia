@@ -18,12 +18,13 @@ WORKDIR /app
 
 # Copiar solo los archivos de Node primero para aprovechar cache
 COPY package*.json ./
-RUN npm install
+
 
 # Copiar el resto del proyecto
 COPY . .
 
 # Generar los assets de Vite
+RUN npm install
 RUN npm run build
 
 # Instalar dependencias PHP

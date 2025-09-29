@@ -1,3 +1,4 @@
+@import './inputYBotones.css';
 .btn-buscar {
   background-color: transparent;
   color: var(--color-coffee, #5c3a21);
