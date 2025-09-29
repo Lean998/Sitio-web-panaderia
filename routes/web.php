@@ -10,7 +10,8 @@ use App\Http\Controllers\ContactoController;
 Route::get('/', [BaseController::class, 'index'])
 ->name('home');
 
-
+Route::get('/sucursal', [BaseController::class, 'sucursal'])
+->name('sucursal');
 
 Route::post('/contacto', [ContactoController::class, 'submit'])
 ->name('contacto.submit');
