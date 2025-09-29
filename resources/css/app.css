@@ -1,5 +1,7 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import './app.css';
+@import './inputsYBotones.css';
+@import './productos.css';
 
 :root {
     font-size: 16px;
