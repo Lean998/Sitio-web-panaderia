@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>@yield('title', 'El funito')</title>
-        @vite(['public/css/app.css', 'public/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('styles')
     </head>
 <body class="background">

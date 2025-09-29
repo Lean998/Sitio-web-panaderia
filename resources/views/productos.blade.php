@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @push('styles')
-    @vite(['public/css/productos.css'])
-    @vite(['public/css/inputsYBotones.css'])
+    @vite(['resources/css/productos.css'])
+    @vite(['resources/css/inputsYBotones.css'])
 @endpush
 
 @section('title', 'Productos')
