@@ -15,7 +15,7 @@
                         <a href="/productos" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none active" aria-current="page">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Sucursal</a>
+                        <a href="{{ route('sucursal') }}" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Sucursal</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('contacto.show') }}" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Contacto</a>
