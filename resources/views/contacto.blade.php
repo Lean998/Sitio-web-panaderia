@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
-    @vite(['resources/css/inputsYBotones.css'])
+    @vite(['public/css/inputsYBotones.css'])
 @endpush
 
 @section('title', 'Contacto')

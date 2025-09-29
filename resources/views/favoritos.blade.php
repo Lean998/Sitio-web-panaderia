@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('styles')
-    @vite(['resources/css/productos.css'])
+    @vite(['public/css/productos.css'])
 @endpush
 
 @section('title', 'Favoritos')
