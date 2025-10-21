@@ -32,13 +32,13 @@
 .input-texto {
     background-color: var(--color-sand, #F5E8C7);
     border: 1px solid var(--color-chocolate, #5C3A21);
-    color: var(--color-coffee, #5C3A21);
+    color: var(--color-espresso, #5C3A21);
 }
 
 .input-texto:focus {
   background-color: var(--color-sand, #F5E8C7);
   border-color: var(--color-chocolate, #5C3A21);
-  color: var(--color-coffee, #5C3A21);
+  color: var(--color-espresso, #5C3A21);
   box-shadow: none;
 }
 
