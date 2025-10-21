@@ -42,14 +42,7 @@
         <label for="email" class="form-label color-coffee fw-semibold">
             Email: <span class="text-danger">*</span>
         </label>
-        <input 
-            type="email" 
-            class="form-control input-texto bg-sand border-chocolate color-cream @error('email') is-invalid @enderror" 
-            id="email" 
-            name="email"
-            value="{{ old('email') }}"
-            required
-        >
+        <input type="email" class="form-control input-texto bg-sand border-chocolate color-cream @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required>
         @error('email')
             <div class="invalid-feedback">{{ $message }}</div>
         @else
@@ -63,13 +56,7 @@
         <label for="mensaje" class="form-label color-coffee fw-semibold">
             Mensaje: <span class="text-danger">*</span>
         </label>
-        <textarea 
-            class="form-control input-texto bg-sand border-chocolate color-cream @error('mensaje') is-invalid @enderror" 
-            id="mensaje" 
-            name="mensaje" 
-            rows="4" 
-            required
-        >{{ old('mensaje') }}</textarea>
+        <textarea class="form-control input-texto bg-sand border-chocolate color-cream @error('mensaje') is-invalid @enderror" id="mensaje" name="mensaje" rows="4" required>{{ old('mensaje') }}</textarea>
         @error('mensaje')
             <div class="invalid-feedback">{{ $message }}</div>
         @else
