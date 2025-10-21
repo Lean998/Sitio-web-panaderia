@@ -1,0 +1,93 @@
+.stat-card {
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 0.5rem;
+}
+
+.stat-icon {
+    opacity: 0.3;
+}
+
+.quick-access-card {
+    border: 0.5px solid var(--color-espresso);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.quick-access-card:hover {
+    border:2px solid var(--color-amber);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header button {
+    transition: transform 0.3s;
+}
+
+.card-header button[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.collapse {
+    transition: height 0.3s ease;
+}
+
+.category-item,
+.valor-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+.progress {
+    border-radius: 10px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.badge {
+    padding: 0.4em 0.8em;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .stat-value {
+        font-size: 2rem;
+    }
+    
+    .stat-icon i {
+        font-size: 2rem !important;
+    }
+}
+
+.table {
+  background-color: var(--color-background-table) !important;
+}
+.table > :not(caption) > * > * {
+  background-color: var(--color-background-table) !important;
+}
