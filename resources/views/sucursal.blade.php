@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 mb-3">
     <div class="card shadow-lg">
         <div class="row g-0">
             <div class="col-md-6 d-flex bg-sand border-chocolate rounded-start shadow-inherit flex-column justify-content-center p-4">
