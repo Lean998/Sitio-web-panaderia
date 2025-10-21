@@ -97,11 +97,12 @@
         @foreach($productos as $producto)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-4 pt-1">
                 <x-producto-card 
-                    :imagen="asset('images/categorias/panaderia.jpg')"
+                    :imagen="asset('storage/' . $producto->imagen)"
                     :producto="$producto"
                 />
             </div>
         @endforeach
+        
     </div>
 </section>
 
