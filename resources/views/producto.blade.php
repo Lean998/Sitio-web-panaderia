@@ -19,7 +19,7 @@
     <div class="row g-4 bg-caramel px-1 py-5 rounded shadow-sm">
         {{-- Imagen del producto --}}
         <div class="col-md-5 text-center">
-            <img src="{{ asset('images/categorias/panaderia.jpg') }}" alt="{{ $producto->nombre }}" class="img-fluid rounded shadow-sm flex-shrink-0" style="max-height: 400px; object-fit: cover;">
+            <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" class="img-fluid rounded shadow-sm flex-shrink-0" style="max-height: 400px; object-fit: cover;">
         </div>
 
         {{-- Información del producto --}}
@@ -52,10 +52,13 @@
             {{-- Controles --}}
             <div>
                 @php
-                    $carrito = session()->get('carrito', []);
-                    $enCarrito = isset($carrito[$producto->id]);
-                    $cantidadEnCarrito = $enCarrito ? $carrito[$producto->id]['cantidad'] : 0;
-                    $sinStock = $producto->cantidad - $cantidadEnCarrito <= 0;
+                    $carritoService = app(\App\Services\CarritoService::class);
+                    $carritoModel = $carritoService->getCarritoModel();
+                    $enCarrito = $carritoModel->tieneProducto($producto->id);
+                    $cantidadEnCarrito = $carritoModel->getCantidadProducto($producto->id);
+                    $stockDisponible = max(0, $producto->cantidad - $cantidadEnCarrito);
+                    $sinStock = $stockDisponible <= 0;
+                    $unidadMedida = $producto->unidad_venta === 'kg' ? 'kg' : 'unidad';
                 @endphp
 
                 <form action="{{ route('producto.extendido', ['producto' => $producto->id]) }}" method="POST" class="row gap-3">
