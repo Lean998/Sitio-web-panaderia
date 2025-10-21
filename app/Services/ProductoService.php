@@ -8,6 +8,7 @@ use App\Models\Producto;
 use App\Models\Carrito;
 use App\Http\Controllers\CarritoController;
 use Exception;
+use GuzzleHttp\Psr7\Request;
 
 class ProductoService
 {
@@ -78,5 +79,58 @@ class ProductoService
         // Actualizar carrito en DB
         $carritoController->actualizarCarrito(session()->getId(), session()->get('carrito', []));
 
+    }
+
+    public function crearProducto($data){ 
+        $producto = new Producto();
+        $producto->nombre = $data[0]['nombre'];
+        $producto->descripcion = $data[0]['descripcion'];
+        $producto->precio = $data[0]['precio'];
+        $producto->categoria = $data[0]['categoria'];
+        $producto->tipo = $data[0]['tipo'];
+        $producto->cantidad = $data[0]['cantidad'];
+        $producto->unidad_venta = $data[0]['unidad'];
+        $producto->imagen = $data[1];
+        $producto->save();
+
+        return $producto;
+    }
+
+    public function eliminarProducto($productoId){
+        $producto = Producto::find($productoId);
+        if (!$producto) {
+            throw new ProductoNoEncontradoException("Producto no encontrado.");
+        }
+
+        if (!$producto->delete()) {
+            throw new Exception("Error al eliminar el producto.");
+        }
+        
+        return true;
+    }
+
+    public function editarProducto($data, $productoId){
+        $producto = Producto::find($productoId);
+        if (!$producto) {
+            throw new ProductoNoEncontradoException("Producto no encontrado.");
+        }
+
+        $producto->nombre = $data['nombre'];
+        $producto->descripcion = $data['descripcion'];
+        $producto->precio = $data['precio'];
+        $producto->categoria = $data['categoria'];
+        $producto->tipo = $data['tipo'];
+        $producto->cantidad = $data['cantidad'];
+        $producto->unidad_venta = $data['unidad'];
+        
+        if(!empty($data['imagen'])){
+            $producto->imagen = $data['imagen'];
+        }
+        
+        if (!$producto->save()) {
+            throw new Exception("Error al modificar el producto.");
+        }
+        
+        return true;
     }
 }
