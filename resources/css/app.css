@@ -7,17 +7,19 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
     --color-cream: #F5E8C7;     
-    --color-coffee: #A47148;    
     --color-sand: #F2E1B9;      
     --color-chocolate: #5C3A21; 
+    --color-coffee: #A47148;    
     --color-caramel: #d4a373;   
+    --color-amber: #E4B660;
+    --color-espresso: #3B2415;
 
     /* Font sizes */
     --fs-h1: 2.75rem;   /* 44px */
     --fs-h2: 2rem;      /* 32px */
     --fs-h3: 1.75rem;  /* 28px */
     --fs-body: 1.50rem; /* 24px */
-    --fs-primary: 1.25rem; /* 20px */
+    --fs-primary: 1.1rem ; /* 18px */
 }
 
 .fs-h1 {
@@ -34,6 +36,10 @@
 }
 .fs-primary {
     font-size: var(--fs-primary);
+}
+
+.color-espresso {
+    color: var(--color-espresso);
 }
 
 .color-cream {
@@ -54,6 +60,18 @@
 
 .color-caramel {
     color: var(--color-caramel);
+}
+
+.color-amber {
+    color: var(--color-amber);
+}
+
+.bg-espresso {
+    background-color: var(--color-espresso);
+}
+
+.bg-amber {
+    background-color: var(--color-amber);
 }
 
 .bg-chocolate {
@@ -157,3 +175,112 @@ footer{
             width: 100%;
         }
 
+.table {
+    background-color: var(--color-cream);
+    border-color: var(--color-chocolate);
+}
+
+.table > :not(caption) > * > * {
+    background-color: var(--color-cream);
+    border-color: var(--color-chocolate);
+}
+
+.btn-chocolate {
+  background-color: var(--color-chocolate);
+  color: #fff;
+  border: 1px solid var(--color-chocolate);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-chocolate:hover {
+  background-color: #4b2f1a;
+  border: 1px solid #4b2f1a;
+  color: #fff;
+}
+
+.btn-outline-chocolate {
+  background-color: transparent;
+  color: var(--color-chocolate);
+  border: 1px solid var(--color-chocolate);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-chocolate:hover {
+  border: 1px solid var(--color-chocolate);
+  color: #fff;
+}
+
+.btn-coffee {
+  background-color: var(--color-coffee);
+  color: #fff;
+  border: 1px solid var(--color-coffee);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-coffee:hover {
+  background-color: #8c5f3c;
+  border-color: #8c5f3c;
+  color: #fff;
+}
+
+.btn-outline-coffee {
+  background-color: transparent;
+  color: var(--color-coffee);
+  border: 1px solid var(--color-coffee);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-coffee:hover {
+  background-color: var(--color-coffee);
+  color: #fff;
+}
+
+.btn-caramel {
+  background-color: var(--color-caramel);
+  color: #fff;
+  border: 1px solid var(--color-caramel);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-caramel:hover {
+  background-color: #bd8b5f;
+  border-color: #bd8b5f;
+  color: #fff;
+}
+
+.btn-outline-caramel {
+  background-color: transparent;
+  color: var(--color-caramel);
+  border: 1px solid var(--color-caramel);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-caramel:hover {
+  background-color: var(--color-caramel);
+  color: #fff;
+}
+
+.btn-espresso {
+  background-color: var(--color-espresso);
+  color: #fff;
+  border: 1px solid var(--color-espresso);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-espresso:hover {
+  background-color: #4b2a14;
+  border-color: #4b2a14;
+  color: #fff;
+}
+
+.btn-outline-espresso {
+  background-color: transparent;
+  color: var(--color-espresso);
+  border: 1px solid var(--color-espresso);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-espresso:hover {
+  background-color: var(--color-espresso);
+  color: #fff;
+}
