@@ -5,8 +5,8 @@
     
 @section('content')
     <div id="carrousel" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active bg-banner" style="background-image: url('{{ asset('images/homeBackground.jpg') }}')">
+        <div class="carousel-inner" style="height: auto;">
+            <div class="carousel-item active bg-banner" style="background-image: url('{{ asset('images/homeBackground.webP') }}')">
             
             </div>
         </div>
@@ -30,19 +30,19 @@
         <div class="col-12 col-md-6 col-lg-4">
             <x-categoria-card 
                 ruta="{{ route('productos', ['categoria' => 'Panaderia']) }}"
-                imagen="{{ asset('images/categorias/panaderia.jpg') }}" 
+                imagen="{{ asset('images/categorias/panaderia.webP') }}" 
                 categoria="Panadería" />
         </div>
         <div class="col-12 col-md-6 col-lg-4 ">
             <x-categoria-card 
                 ruta="{{ route('productos', ['categoria' => 'Pasteleria']) }}"
-                imagen="{{ asset('images/categorias/pasteleria.jpg') }}" 
+                imagen="{{ asset('images/categorias/reposteria.webP') }}" 
                 categoria="Pastelería" />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
             <x-categoria-card 
                 ruta="{{ route('productos', ['categoria' => 'Salados']) }}"
-                imagen="{{ asset('images/categorias/salados.jpg') }}" 
+                imagen="{{ asset('images/categorias/salados.webP') }}" 
                 categoria="Salados" />
         </div>
     </div>
