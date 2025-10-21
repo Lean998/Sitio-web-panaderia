@@ -21,6 +21,9 @@
                         <a href="{{ route('contacto.show') }}" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Contacto</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('pedido.mostrar-buscar') }}" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Mis Pedidos</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('favoritos') }}" class="border-sand py-3 px-4 fw-semibold fs-h3 nav-link text-reset text-decoration-none">Favoritos</a>
                     </li>
                     <li class="nav-item" id="cart-link">
