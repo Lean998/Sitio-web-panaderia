@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Carrito;
 use App\Models\Favoritos;
 use Symfony\Component\HttpFoundation\Response;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class EnsureSessionInitialized
 {
     /**
@@ -18,26 +19,21 @@ class EnsureSessionInitialized
     public function handle(Request $request, Closure $next): Response
     {
         $sessionId = $request->session()->getId();
-
-        if (!$request->session()->has('carrito')) {
-            Carrito::firstOrCreate(
-                ['session_id' => $sessionId],
-                ['productos' => json_encode([])]
-            );
-
-            $carrito = Carrito::getCarrito($sessionId) ?? [];
-            $request->session()->put('carrito', $carrito);
+        
+        // Inicializar favoritos si no existe
+        if (!$request->session()->has('carrito_id')) {
+            $carrito = Carrito::getCarritoPorSession($sessionId)->load('items.producto');
+            $request->session()->put('carrito_id', $carrito->id);
         }
-
-        if (!$request->session()->has('favoritos')) {
-            Favoritos::firstOrCreate(
-                ['session_id' => $sessionId],
-                ['productos' => json_encode([])]
-            );
-
-            $favoritos = Favoritos::getFavoritos($sessionId) ?? [];
-            $request->session()->put('favoritos', $favoritos);
+        // Inicializar favoritos si no existe
+        if (!$request->session()->has('favoritos_id')) {
+            $favoritos = Favoritos::getFavoritosPorSession($sessionId);
+            $request->session()->put('favoritos_id', $favoritos->id);
         }
+        if (!Auth::check() && !session()->has('admin_in')) {
+            session()->put('admin_in', false);
+        }
+        
         return $next($request);
     }
 }
