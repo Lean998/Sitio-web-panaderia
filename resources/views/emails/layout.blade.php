@@ -5,99 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F5E8C7;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            background: linear-gradient(135deg, #5C3A21, #3B2415);
-            color: #F5E8C7;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-        .content {
-            padding: 30px;
-            color: #3B2415;
-        }
-        .codigo-retiro {
-            background-color: #F2E1B9;
-            border: 3px dashed #5C3A21;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-        .codigo-retiro .label {
-            font-size: 14px;
-            color: #A47148;
-            margin-bottom: 10px;
-        }
-        .codigo-retiro .codigo {
-            font-size: 36px;
-            font-weight: bold;
-            color: #5C3A21;
-            letter-spacing: 8px;
-        }
-        .info-box {
-            background-color: #F5E8C7;
-            padding: 15px;
-            border-left: 4px solid #A47148;
-            margin: 20px 0;
-        }
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #5C3A21;
-            color: #F5E8C7;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .footer {
-            background-color: #F2E1B9;
-            padding: 20px;
-            text-align: center;
-            color: #A47148;
-            font-size: 12px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table th {
-            background-color: #5C3A21;
-            color: #F5E8C7;
-            padding: 10px;
-            text-align: left;
-        }
-        table td {
-            padding: 10px;
-            border-bottom: 1px solid #F2E1B9;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { color: #A0522D; text-align: center; }
+        .info-box { background: #F5F5DC; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .codigo-retiro { text-align: center; margin: 20px 0; }
+        .codigo { font-size: 24px; font-weight: bold; color: #2F4F4F; background: #F5F5DC; padding: 10px; border-radius: 5px; }
+        .label { font-size: 16px; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #A0522D; color: #fff; }
+        .button { display: inline-block; padding: 10px 20px; background: #A0522D; color: #fff; text-decoration: none; border-radius: 5px; margin: 15px 0; }
+        .button:hover { background: #8B4513; }
+        @media (max-width: 600px) { table, th, td { font-size: 14px; padding: 8px; } .button { width: 100%; text-align: center; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🥖 El Funito</h1>
-        </div>
-        
         <div class="content">
             @yield('content')
         </div>
