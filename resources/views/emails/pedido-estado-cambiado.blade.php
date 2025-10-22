@@ -11,7 +11,7 @@
 
     <div class="info-box">
         <strong>Estado anterior:</strong> {{ ucfirst($estadoAnterior) }}<br>
-        <strong>Estado actual:</strong> <span style="color: #5C3A21; font-size: 18px;">{{ ucfirst($pedido->estado) }}</span>
+        <strong>Estado actual:</strong> <span style="color: #2F4F4F; font-size: 18px;">{{ ucfirst($pedido->estado) }}</span>
     </div>
 
     @if($pedido->estado === 'listo')
@@ -23,7 +23,7 @@
 
         <div class="info-box">
             <strong>⏰ Horarios de retiro:</strong><br>
-            Martes a Sabado: 8:00 - 20:00<br>
+            Martes a Sábado: 8:00 - 20:00<br>
             Domingos: 8:00 - 14:00<br>
             Lunes: Cerrado
         </div>
