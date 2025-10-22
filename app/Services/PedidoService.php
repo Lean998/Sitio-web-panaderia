@@ -10,8 +10,8 @@ use App\Models\Carrito;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PedidoCreadoMail;
-use App\Mail\PedidoEstadoCambiadoMail;
+use App\Mail\ConfirmacionPedido;
+use App\Mail\ActualizacionPedido;
 
 class PedidoService
 {
@@ -111,9 +111,13 @@ class PedidoService
 
         // Vaciar carrito
         $this->carritoService->vaciarCarrito();
-
-        (new PedidoCreadoMail($pedido))->sendWithResend($pedido->correo);
-
+        /*
+        try {
+            Mail::to($pedido->correo)->send(new ConfirmacionPedido($pedido));
+        } catch (Exception $e) {
+            throw $e;
+        }
+        */
         DB::commit();
         return $pedido->fresh();
 
@@ -142,11 +146,15 @@ class PedidoService
         }
 
         $pedido->update($updates);
-        
+        /*
         if ($estadoAnterior !== $nuevoEstado) {
-            (new PedidoEstadoCambiadoMail($pedido, $estadoAnterior))->sendWithResend($pedido->correo);
+            try {
+                Mail::to($pedido->correo)->queue(new ActualizacionPedido($pedido, $estadoAnterior));
+            } catch (Exception $e) {
+                throw $e;
+            }
         }
-        
+        */
         return $pedido->fresh();
     }
 
