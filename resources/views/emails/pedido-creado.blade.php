@@ -16,8 +16,8 @@
 
     <div class="info-box">
         <strong>📋 Número de Pedido:</strong> {{ $pedido->codigo_pedido }}<br>
-        <strong>📅 Fecha:</strong> {{ $pedido->created_at->format('d/m/Y H:i') }}<br>
-        <strong>💳 Método de Pago:</strong> {{ ucfirst($pedido->medio_pago) }}<br>
+        <strong>📅 Fecha:</strong> {{ $pedido->created_at->locale('es')->format('d/m/Y H:i') }}<br>
+        <strong>💳 Método de Pago:</strong> {{ $pedido->medio_pago }}<br>
         <strong>💰 Total Pagado:</strong> ${{ number_format($pedido->monto_final, 2, ',', '.') }}
     </div>
 
@@ -35,11 +35,20 @@
             @foreach($pedido->items as $item)
                 <tr>
                     <td>{{ $item->nombre_producto }}</td>
-                    <td>{{ $item->cantidad }} {{ $item->unidad_venta }}</td>
+                    <td>{{ $item->cantidad }} {{ config('unidades.unidadMedida.'.$item->unidad_venta) }}</td>
                     <td>${{ number_format($item->precio_unitario, 2, ',', '.') }}</td>
                     <td>${{ number_format($item->subtotal, 2, ',', '.') }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>RECARGO:</strong></td>
+                @php
+                    use App\Services\PedidoService;
+                    $pedidoService = new PedidoService();
+                    $recargo = $pedidoService->calcularMontoFinal($pedido->monto_total, $pedido->medio_pago)
+                @endphp
+                <td> ${{ number_format($recargo['monto_recargo'], 2, ',', '.')  }} </td>
+            </tr>
             <tr>
                 <td colspan="3" style="text-align: right;"><strong>TOTAL:</strong></td>
                 <td><strong>${{ number_format($pedido->monto_final, 2, ',', '.') }}</strong></td>
