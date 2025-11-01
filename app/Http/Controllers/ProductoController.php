@@ -35,10 +35,10 @@ class ProductoController extends Controller
         ]);
         
         $tipos = [
-            'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette'],
+            'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette', 'Tortitas', 'Pan', 'Pan casero'],
             'Pasteleria' => ['Tortas', 'Tartas', 'Postres'],
             'Salados'   => ['Empanadas', 'Pizzetas', 'Facturas saladas'],
-            'Todos'     => ['Medialunas', 'Pan integral', 'Baguette', 'Tortas', 'Tartas', 'Postres', 'Empanadas', 'Pizzetas', 'Facturas saladas'],
+            'Todos'     => ['Medialunas', 'Pan integral', 'Baguette', 'Tortas', 'Tartas', 'Postres', 'Empanadas', 'Pizzetas', 'Facturas saladas', 'Pan', 'Pan casero', 'Tortitas'],
         ];
 
         return view('productos', ['productos' => $productos, 'categoriaKey' => $categoria ? ucfirst($categoria) : 'Todos', 'tipos' => $tipos]);
@@ -69,15 +69,11 @@ class ProductoController extends Controller
                 $this->carritoService->agregarUnidad($producto, $cantidad);
                 return redirect()->route('carrito')->with('success', 'Agregaste '.$cantidad. ' '.$producto->unidad_venta. ' de '. $producto->nombre. ' al carrito.');
             }
-
-            if ($request->filled('comprar')) {
-                $this->productService->comprarProducto($producto, $cantidad);
-                return redirect()->route('productos.ver', ['producto' => $producto->id])->with('success', 'Producto comprado con éxito.');
-            }
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     } 
+
 
     public function crearProducto(Request $request){
         if (!Auth::check() || Auth::user()->role !== 'admin' || !session('admin_in')) {
@@ -85,9 +81,9 @@ class ProductoController extends Controller
         }
 
         $tipos = [
-        'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette'],
-        'Pasteleria' => ['Tortas', 'Tartas', 'Postres'],
-        'Salados'   => ['Empanadas', 'Pizzetas', 'Facturas saladas'],
+            'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette', 'Tortitas', 'Pan', 'Pan casero'],
+            'Pasteleria' => ['Tortas', 'Tartas', 'Postres'],
+            'Salados'   => ['Empanadas', 'Pizzetas', 'Facturas saladas'],
         ];
         return view('admin.productos.new-producto', compact('tipos'));
     }
@@ -206,10 +202,10 @@ class ProductoController extends Controller
         try {
             $producto = $this->productService->getProducto($producto);
             $tipos = [
-                'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette'],
-                'Pasteleria' => ['Tortas', 'Tartas', 'Postres'],
-                'Salados'   => ['Empanadas', 'Pizzetas', 'Facturas saladas'],
-            ];
+            'Panaderia' => ['Medialunas', 'Pan integral', 'Baguette', 'Tortitas', 'Pan', 'Pan casero'],
+            'Pasteleria' => ['Tortas', 'Tartas', 'Postres'],
+            'Salados'   => ['Empanadas', 'Pizzetas', 'Facturas saladas'],
+        ];
             return view('admin.productos.editar-producto', compact('producto', 'tipos'));
         } catch (ProductoNoEncontradoException $e) {
             return redirect()->route('admin.productos')->with('error', $e->getMessage());
