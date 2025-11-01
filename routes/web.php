@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PedidoDirectoController;
 use App\Http\Controllers\Admin\AdminPedidoController;
 use App\Http\Controllers\Admin\AdminStockController;
 
@@ -87,9 +88,18 @@ Route::prefix('pedido')->name('pedido.')->group(function () {
     // Checkout y creación
     Route::get('/checkout', [PedidoController::class, 'checkout'])
     ->name('checkout');
+
+    Route::get('/checkout-directo', [PedidoDirectoController::class, 'checkoutDirecto'])
+    ->name('checkout-directo');
+
+    Route::post('/comprar-directo/{productoId}', [PedidoDirectoController::class, 'comprarDirecto'])
+    ->name('comprar-directo');
     
     Route::post('/crear', [PedidoController::class, 'crear'])
     ->name('crear');
+
+    Route::post('/pedido/crear-directo', [PedidoDirectoController::class, 'crearPedidoDirecto'])
+    ->name('crear-directo');
     
     // Pago
     Route::get('/{pedido}/pago', [PedidoController::class, 'pago'])
@@ -139,65 +149,70 @@ Route::prefix('admin')
     ->middleware(['admin', 'cache.headers:no_cache,no_store,must_revalidate'])
     ->group(function () {
 
-        // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+        Route::middleware('admin')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/', [DashboardController::class, 'index'])->name('index');
+            Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-        Route::get('/', [DashboardController::class, 'index'])
-        ->name('index');
+            Route::get('/usuarios/crear', [AdminController::class, 'create'])
+            ->name('usuarios.create');
 
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+            Route::post('/usuarios', [AdminController::class, 'store'])
+            ->name('usuarios.store');
 
-        // Productos
-        Route::get('/productos/crear', [ProductoController::class, 'crearProducto'])
-        ->name('productos.crear.get');
-
-        Route::post('/productos/crear', [ProductoController::class, 'postCrearProducto'])
-        ->name('productos.crear');
-
-        Route::delete('/productos/eliminar', [ProductoController::class, 'eliminarProducto'])
-        ->name('productos.eliminar');
-
-        Route::put('/productos/editar', [ProductoController::class, 'editarProducto'])
-        ->name('productos.editar');
-        
-        Route::get('/productos/editar/{producto?}', [ProductoController::class, 'getEditarProducto'])
-        ->name('productos.editar.get');
-        
-        Route::get('/productos/{categoria?}', [AdminController::class, 'productos'])
-        ->name('productos');
-        
-        Route::get('/productos/ver/{producto?}', [ProductoController::class, 'getProducto'])
-        ->name('productos.ver');
-
-        // Stock
-        Route::prefix('stock')->name('stock.')->group(function () {
-            Route::get('/', [AdminStockController::class, 'index'])
-            ->name('index');
-
-            Route::put('/{producto}/actualizar', [AdminStockController::class, 'actualizarStock'])
-            ->name('actualizar');
-
-            Route::post('/actualizar-multiple', [AdminStockController::class, 'actualizarMultiple'])
-            ->name('actualizar-multiple');
+            // Productos (crear, editar, eliminar)
+            Route::get('/productos/crear', [ProductoController::class, 'crearProducto'])
+            ->name('productos.crear.get');
+            
+            Route::post('/productos/crear', [ProductoController::class, 'postCrearProducto'])
+            ->name('productos.crear');
+            
+            Route::delete('/productos/eliminar', [ProductoController::class, 'eliminarProducto'])
+            ->name('productos.eliminar');
+            
+            Route::put('/productos/editar', [ProductoController::class, 'editarProducto'])
+            ->name('productos.editar');
+            
+            Route::get('/productos/editar/{producto?}', [ProductoController::class, 'getEditarProducto'])
+            ->name('productos.editar.get');
+            
+            Route::get('/productos/{categoria?}', [AdminController::class, 'productos'])
+            ->name('productos');
+            
+            Route::get('/productos/ver/{producto?}', [ProductoController::class, 'getProducto'])
+            ->name('productos.ver');
         });
 
-        // Pedidos
-        Route::prefix('pedidos')->name('pedidos.')->group(function () {
-            Route::get('/', [AdminPedidoController::class, 'index'])
-            ->name('index');
+        Route::middleware('can.manage.stock.orders')->group(function () {
+            // Stock
+            Route::prefix('stock')->name('stock.')->group(function () {
+                Route::get('/', [AdminStockController::class, 'index'])
+                ->name('index');
 
-            Route::get('/{pedido}', [AdminPedidoController::class, 'show'])
-            ->name('show');
+                Route::put('/{producto}/actualizar', [AdminStockController::class, 'actualizarStock']
+                )->name('actualizar');
 
-            Route::put('/{pedido}/cambiar-estado', [AdminPedidoController::class, 'cambiarEstado'])
-            ->name('cambiar-estado');
+                Route::post('/actualizar-multiple', [AdminStockController::class, 'actualizarMultiple'])
+                ->name('actualizar-multiple');
+            });
 
-            Route::delete('/{pedido}/cancelar', [AdminPedidoController::class, 'cancelar'])
-            ->name('cancelar');
-            
-            Route::get('/estadisticas/ventas', [AdminPedidoController::class, 'estadisticas'])
-            ->name('estadisticas');
+            // Pedidos
+            Route::prefix('pedidos')->name('pedidos.')->group(function () {
+                Route::get('/', [AdminPedidoController::class, 'index'])
+                ->name('index');
+
+                Route::get('/{pedido}', [AdminPedidoController::class, 'show'])
+                ->name('show');
+
+                Route::put('/{pedido}/cambiar-estado', [AdminPedidoController::class, 'cambiarEstado'])
+                ->name('cambiar-estado');
+
+                Route::delete('/{pedido}/cancelar', [AdminPedidoController::class, 'cancelar'])
+                ->name('cancelar');
+
+                Route::get('/estadisticas/ventas', [AdminPedidoController::class, 'estadisticas'])
+                ->name('estadisticas');
+            });
         });
     });
     
