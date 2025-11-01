@@ -1,8 +1,18 @@
 @extends('layouts.admin.admin')
 
 @push('styles')
-    @vite(['resources/css/productos.css'])
-    @vite(['resources/css/inputsYBotones.css'])
+    @vite(['resources/css/productos.css', 'resources/css/inputsYBotones.css'])
+    <style>
+        @media (max-width: 576px) {
+            .btn-aplicar {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            .form-control, .form-select {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 @endpush
 
 @section('title', 'Productos')
@@ -14,25 +24,19 @@
         @php $titulo = "Todos los productos"; @endphp
     @endif
 
+<div class="container my-4" aria-label="Gestión de Productos">
+    <h1 class="h2 fw-bold text-center mb-3 mb-md-4 color-coffee">{{ $titulo }}</h1>
 
-<div class="container my-4">
-    <h2 class="fw-bold text-center mb-4 color-coffee">{{$titulo}}</h2>
-    <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
-        <a role="button" href="{{ route('admin.productos')  }}" class="bg-chocolate color-sand btn btn-aplicar">
-            Ver Todos
-        </a>
-        <a role="button" href="{{ route('admin.productos', ['categoria' => 'panaderia'])  }}" class="bg-chocolate color-sand btn btn-aplicar">
-            Panadería
-        </a>
-        <a role="button" href="{{ route('admin.productos', ['categoria' => 'pasteleria'])  }}" class="bg-chocolate color-sand btn btn-aplicar">
-            Pastelería
-        </a>
-        <a role="button" href="{{ route('admin.productos', ['categoria' =>'salados'])  }}" class="bg-chocolate color-sand btn btn-aplicar">
-            Salados
-        </a>
-    </div>
+    <!-- Navegacion por categorias -->
+    <nav class="d-flex justify-content-center flex-wrap gap-2 gap-md-3 mb-3 mb-md-4" aria-label="Filtro por categoría">
+        <a role="button" href="{{ route('admin.productos') }}" class="bg-chocolate color-sand btn btn-aplicar px-3 py-2 {{ $categoriaKey == 'Todos' ? 'active' : '' }}" aria-current="{{ $categoriaKey == 'Todos' ? 'page' : '' }}">Ver Todos</a>
+        <a role="button" href="{{ route('admin.productos', ['categoria' => 'panaderia']) }}" class="bg-chocolate color-sand btn btn-aplicar px-3 py-2 {{ $categoriaKey == 'panaderia' ? 'active' : '' }}" aria-current="{{ $categoriaKey == 'panaderia' ? 'page' : '' }}">Panadería</a>
+        <a role="button" href="{{ route('admin.productos', ['categoria' => 'pasteleria']) }}" class="bg-chocolate color-sand btn btn-aplicar px-3 py-2 {{ $categoriaKey == 'pasteleria' ? 'active' : '' }}" aria-current="{{ $categoriaKey == 'pasteleria' ? 'page' : '' }}">Pastelería</a>
+        <a role="button" href="{{ route('admin.productos', ['categoria' => 'salados']) }}" class="bg-chocolate color-sand btn btn-aplicar px-3 py-2 {{ $categoriaKey == 'salados' ? 'active' : '' }}" aria-current="{{ $categoriaKey == 'salados' ? 'page' : '' }}">Salados</a>
+    </nav>
+
     <!-- Barra de filtros -->
-    <form method="GET" action="{{ route('admin.productos', ['categoria' => $categoriaKey])  }}"
+     <form method="GET" action="{{ route('productos', ['categoria' => $categoriaKey])  }}"
       class="row g-3 justify-content-center align-items-center">
 
   <!-- Buscar -->
@@ -87,27 +91,30 @@
     </a>
   </div>
 </form>
-</div>
 
-<section class="container my-4" id="productos">
-    <div class="row gx-4 gy-4 mt-4">
-        @if ($productos->isEmpty())
-            <p class="text-center color-coffee fs-h3 fw-bold">No se encontraron productos &#128546; </p>
-        @endif
-        @foreach($productos as $producto)
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-4 pt-1">
-                <x-producto-card 
-                    :imagen="asset('storage/' . $producto->imagen)"
-                    :producto="$producto"
-                />
-            </div>
-        @endforeach
-    </div>
-</section>
+    <!-- Productos -->
+    <section class="container my-4" id="productos" aria-labelledby="productos-title">
+        <h2 id="productos-title" class="visually-hidden">Lista de Productos</h2>
+        <div class="row gx-3 gx-md-4 gy-4 mt-4">
+            @if ($productos->isEmpty())
+                <figure class="text-center">
+                    <figcaption class="color-coffee fs-h3 fw-bold">No se encontraron productos &#128546;</figcaption>
+                </figure>
+            @endif
+            @foreach($productos as $producto)
+                <article class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <x-producto-card 
+                        :imagen="asset('storage/' . $producto->imagen)"
+                        :producto="$producto"
+                    />
+                </article>
+            @endforeach
+        </div>
+    </section>
 
-
-<div class="d-flex justify-content-center mt-4" aria-label="Paginación de productos">
+    <!-- Paginación -->
+    <nav class="d-flex justify-content-center mt-4" aria-label="Paginación de productos">
         {{ $productos->onEachSide(1)->links('pagination::bootstrap-5') }}
+    </nav>
 </div>
-
 @endsection
