@@ -16,7 +16,7 @@ class IsAdmin
         }
 
         
-        if (Auth::user()->role !== 'admin') {
+        if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'customer') {
             abort(403, 'No tienes permisos para acceder a esta área');
         }
 
