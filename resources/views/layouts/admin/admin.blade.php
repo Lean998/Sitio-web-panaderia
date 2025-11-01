@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin - El funito')</title>
+    <title>@yield('title', 'Admin - El Funito')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -12,7 +12,8 @@
     @if(session()->get('admin_in'))
         @include('layouts.admin.headerAdmin')
     @endif
-    {{-- Mensajes de sesión --}}
+
+    <!-- Session Messages -->
     @if (session('success'))
         <div class="container mt-3">
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -36,10 +37,11 @@
         </div>
     @endif
 
-    <main>
+    <main id="main-content" aria-label="Contenido principal">
         @yield('content')
     </main>
-
-   @stack('scripts')
+    
+    @include('layouts.footer')
+    @stack('scripts')
 </body>
 </html>
