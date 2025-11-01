@@ -75,10 +75,10 @@
                             
                             <div class="col-12 col-md-8 d-flex flex-wrap gap-2">
                                 @if ($enCarrito)
-                                        <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Añadir más">
+                                        <input class="btn btn-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Añadir más">
                                         </input>
                                 @else
-                                        <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Agregar al carrito">
+                                        <input class="btn btn-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="agregar" value="Agregar al carrito">
                                         </input>
                                 @endif
 
@@ -86,8 +86,12 @@
                                     <p class="text-danger fw-bold mt-2 bg-sand rounded p-2">Sin stock disponible</p>
                                 @endif
 
-                                <input class="btn bg-chocolate color-sand btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" type="submit" name="comprar" value="Comprar Ahora">
-                                </input>    
+                                {{-- Botón COMPRAR AHORA --}}
+                                <button type="submit" name="comprar" formaction="{{ route('pedido.comprar-directo', $producto->id) }}"
+                                        class="btn btn-coffee btn-aplicar {{ $sinStock ? 'disabled d-none' : '' }}" 
+                                        {{ $sinStock ? 'disabled' : '' }}>
+                                    <i class="bi bi-lightning-charge"></i> Comprar Ahora
+                                </button>   
                             </div>
                 </form>
             </div>
