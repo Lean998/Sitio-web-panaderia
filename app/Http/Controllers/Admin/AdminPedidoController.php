@@ -46,7 +46,6 @@ class AdminPedidoController extends Controller
             $query->where(function($q) use ($buscar) {
                 $q->where('codigo_pedido', 'like', "%{$buscar}%")
                 ->orWhere('codigo_retiro', 'like', "%{$buscar}%")
-                ->orWhere('nombre', 'like', "%{$buscar}%")
                 ->orWhere('correo', 'like', "%{$buscar}%");
             });
         }
