@@ -27,9 +27,8 @@ class AuthController extends Controller
     if (Auth::attempt($credentials, false)) {
         $newSessionId = $request->session()->getId();
         
-        // Si Auth::attempt() cambió el session_id
+        
         if ($oldSessionId !== $newSessionId) {
-            Log::warning("Login cambió session_id: $oldSessionId -> $newSessionId");
             
             // Migrar carrito y favoritos
             DB::table('carritos')
@@ -43,7 +42,14 @@ class AuthController extends Controller
         
         if (Auth::user()->role === 'admin') {
             session()->put('admin_in', true);
+            session()->put('admin_role', 'admin');
             return redirect()->intended(route('admin.dashboard'));
+        } 
+
+        if(Auth::user()->role === 'customer') {
+            session()->put('admin_in', true);
+            session()->put('admin_role', 'customer');
+            return redirect()->intended(route('admin.pedidos.index'));
         }
         
         Auth::logout();
