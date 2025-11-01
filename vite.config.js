@@ -8,7 +8,12 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/inputsYBotones.css',
                 'resources/css/productos.css',
-                'resources/js/app.js'
+                'resources/css/pedidoDetalle.css',
+                'resources/css/admin/dashboard.css',
+                'resources/js/app.js',
+                'resources/js/bootstrap.js',
+                'resources/js/fecha.js',
+                'resources/js/pedidoDetalle.js',
             ],
             refresh: true,
         }),
