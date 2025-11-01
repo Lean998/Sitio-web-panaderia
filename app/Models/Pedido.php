@@ -62,7 +62,9 @@ class Pedido extends Model
         });
 
         static::creating(function ($pedido) {
-            $pedido->codigo_pedido = self::generarCodigoPedidoUnico();
+            if (!$pedido->codigo_pedido){
+                $pedido->codigo_pedido = self::generarCodigoPedidoUnico();
+            }
         });
     }
 
