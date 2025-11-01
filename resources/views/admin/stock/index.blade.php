@@ -81,10 +81,11 @@
                     <thead class="bg-chocolate text-white sticky-top">
                         <tr>
                             <th style="width: 5%">Id</th>
-                            <th style="width: 40%">Producto</th>
+                            <th style="width: 30%">Producto</th>
                             <th style="width: 15%">Categoría</th>
                             <th style="width: 15%">Precio</th>
                             <th style="width: 15%" class="text-center">Stock Actual</th>
+                            <th style="width: 10%" class="text-center">Unidad de Venta</th>
                             <th style="width: 10%" class="text-center">Estado</th>
                         </tr>
                     </thead>
@@ -103,6 +104,9 @@
                                 </td>
                                 <td class="text-center">
                                     <input type="number" class="form-control input-texto form-control-sm text-center stock-input" value="{{ $producto->cantidad }}" data-producto-id="{{ $producto->id }}" data-original="{{ $producto->cantidad }}" min="0" step="0.01" style="width: 100px; margin: 0 auto;">
+                                </td>
+                                <td class="text-center">
+                                    <strong>{{ config('unidades.unidadMedida.'.$producto->unidad_venta )}}</strong>
                                 </td>
                                 <td class="text-center">
                                     @if($producto->cantidad == 0)
