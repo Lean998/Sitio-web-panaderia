@@ -10,8 +10,11 @@ return [
     ],
 
     'attributes' => [
+        'name' => 'nombre',
         'nombre' => 'nombre',
         'email' => 'correo electrónico',
+        'message' => 'mensaje',
         'mensaje' => 'mensaje',
+        'password' => 'contraseña',
     ],
 ];
