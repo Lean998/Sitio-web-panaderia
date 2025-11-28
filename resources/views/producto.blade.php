@@ -66,10 +66,10 @@
                             <div class="col-12 col-md-4">
                                 @if($unidadMedida == "kg")
                                     <label for="inputCantidad" class="form-label">Cantidad (kg): </label>
-                                    <input id="inputCantidad" type="number" name="cantidad" min="0.1" step="any" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    <input id="inputCantidad" type="number" name="cantidad" min="0.1" step="any" max="{{ $producto->cantidad}}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
                                 @else
                                     <label for="inputCantidad" class="form-label">Cantidad: </label>
-                                    <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad - $cantidadEnCarrito }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
+                                    <input id="inputCantidad" type="number" name="cantidad" min="1" max="{{ $producto->cantidad }}" value="1" class="form-control d-inline w-auto me-2" style="width: 80px;">
                                 @endif
                             </div>
                             
