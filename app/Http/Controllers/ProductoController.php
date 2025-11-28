@@ -9,7 +9,6 @@ use Exception;
 use App\Exceptions\ProductoNoEncontradoException;
 use App\Services\FavoritosService;
 use App\Services\CarritoService;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 class ProductoController extends Controller
@@ -131,12 +130,19 @@ class ProductoController extends Controller
         $imagenData = explode(',', $imagenBase64);
         $imagenDecoded = base64_decode($imagenData[1]);
         
-        // Generar nombre único
+        // Generar nombre único 
         $nombreImagen = Str::random(12) . '.webp';
         $rutaImagen = 'productos/' . $nombreImagen;
         
-        // Guardar en storage
-        Storage::disk('public')->put($rutaImagen, $imagenDecoded);
+        //Guardar imagen
+        $path = public_path('storage/' . $rutaImagen);
+        $dir = dirname($path);      
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        file_put_contents($path, $imagenDecoded);
         
         try {
             $newProducto = $this->productService->crearProducto([$request->all(), $rutaImagen]);
@@ -182,7 +188,9 @@ class ProductoController extends Controller
 
             $resultado = $this->productService->eliminarProducto($productoId);
             if($resultado){
-                Storage::disk('public')->delete($producto->imagen);
+                $path = public_path('storage/' . $producto->imagen);
+                // Borrar imagen del sistema de archivos
+                $this->productService->eliminarImagenProducto($producto->imagen);
                 return redirect()->route('admin.productos')->with('success', 'Producto eliminado con éxito.');
             } else {
                 return back()->with('error', 'Error al eliminar el producto. Intenta nuevamente.');
@@ -265,10 +273,19 @@ class ProductoController extends Controller
             $nombreImagen = Str::random(12) . '.webp';
             $rutaImagen = 'productos/' . $nombreImagen;
             
-            // Guardar en storage
-            Storage::disk('public')->put($rutaImagen, $imagenDecoded);
-            Storage::disk('public')->delete($producto->imagen);
-        }
+            //Guardar nueva imagen
+            $path = public_path('storage/' . $rutaImagen);
+            $dir = dirname($path);      
+
+            if (!file_exists($dir)) {
+                mkdir($dir, 0755, true);
+            }
+
+            file_put_contents($path, $imagenDecoded);
+
+            // Borrar imagen anterior del sistema de archivos
+            $this->productService->eliminarImagenProducto($producto->imagen);
+            }
 
         try {
             $data = $request->all();
