@@ -52,6 +52,7 @@ php artisan serve
 
 
 ### Sobre mí
+
 ¡Hola! Soy Leandro, estudiante del 3º año de la Tecnicatura Universitaria en Web – UNSL
 Este es mi primer proyecto grande con Laravel y estoy muy orgulloso del resultado
 
