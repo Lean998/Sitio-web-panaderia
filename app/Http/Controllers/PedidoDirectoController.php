@@ -7,21 +7,12 @@ use App\Models\Producto;
 use App\Models\Pedido;
 use App\Models\PedidoItems;
 use Illuminate\Http\Request;
-use App\Services\CarritoService;
-use App\Services\PedidoService;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
 class PedidoDirectoController extends Controller
 {
-    protected CarritoService $carritoService;
-    protected PedidoService $pedidoService;
 
-    public function __construct()
-    {
-        $this->carritoService = new CarritoService();
-        $this->pedidoService = new PedidoService();
-    }
 
     /**
      * Preparar compra directa del producto
