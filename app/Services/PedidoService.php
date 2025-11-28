@@ -1,5 +1,4 @@
 <?php
-// app/Services/PedidoService.php
 
 namespace App\Services;
 
@@ -107,10 +106,10 @@ class PedidoService
             }
 
             $producto->decrement('cantidad', $item->cantidad);
+
+            $this->carritoService->removerProducto($producto->id);
         }
 
-        // Vaciar carrito
-        $this->carritoService->vaciarCarrito();
         /*
         try {
             Mail::to($pedido->correo)->send(new ConfirmacionPedido($pedido));
