@@ -44,6 +44,31 @@ php artisan serve
 
 ```
 
+### Credenciales de acceso (creadas automáticamente)
+
+| Rol           | Email                     | Contraseña   |
+|---------------|---------------------------|--------------|
+| Administrador | admin@panaderia.com       | admin123     |
+
+
+### Sobre mí
+¡Hola! Soy Leandro, estudiante del 3º año de la Tecnicatura Universitaria en Web – UNSL
+Este es mi primer proyecto grande con Laravel y estoy muy orgulloso del resultado
+
+**Tecnologías que más uso**
+- PHP
+- MySQL
+- JavaScript
+- Blade + Bootstrap
+- Git & GitHub
+
+Siempre aprendiendo y mejorando código  
+¡Feedback y oportunidades son más que bienvenidos!
+
+**Contacto**
+- LinkedIn → [linkedin.com/in/leandro-jorge-aguero](https://www.linkedin.com/in/leandro-jorge-aguero/)
+- Email → leandroagueo83@gmail.com
+
 ## Licencia
 Este proyecto está bajo la licencia MIT - ver archivo [LICENSE](LICENSE) para más detalles.
 
