@@ -5,10 +5,9 @@ namespace App\Services;
 use App\Exceptions\ProductoNoEncontradoException;
 use App\Exceptions\StockInsuficienteException;
 use App\Models\Producto;
-use App\Models\Carrito;
 use App\Http\Controllers\CarritoController;
 use Exception;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductoService
 {
@@ -132,5 +131,17 @@ class ProductoService
         }
         
         return true;
+    }
+
+    public function eliminarImagenProducto($imagen){
+            $path = public_path('storage/' . $imagen);
+            // Borrar imagen del sistema de archivos
+            if (file_exists($path)) {
+                try {
+                    unlink($path);
+                } catch (Exception $e) {
+                    Log::warning("No se pudo eliminar imagen: {$path}");
+                }
+            }
     }
 }
